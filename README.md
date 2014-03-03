@@ -1,4 +1,4 @@
-# Technology Scavenger
+# Pixel Clustering
 
 ## Goal
 
