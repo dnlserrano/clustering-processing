@@ -10,6 +10,7 @@
 ## Solution
 
 Algorithm:
+
 1. Create cluster from the top-left corner of the image
 2. Pick random pixel from current cluster
 3. Check random neighbor (not already clustered or invalid - corner cases) for color proximity
