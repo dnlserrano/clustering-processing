@@ -212,7 +212,7 @@ void setup() {
   img = loadImage("file.jpg");
   size(img.width, img.height);
   imgClustered = createImage(img.width, img.height, RGB);
-  background(0);
+  background(255);
   pixelsFlags();
   loadPixels();
   randomClusters();
