@@ -3,6 +3,7 @@ int MIN_CLUSTER_SIZE = 20;
 int MAX_CLUSTER_SIZE = 40;
 
 PImage img;
+PImage imgClustered;
 boolean[] pxls;
 
 int newPosition() {
@@ -15,7 +16,9 @@ int newPosition() {
   return -1; // should never happen
 }
 
+
 void randomClusters() {
+  
   print("processing clusters");
   int i = 0;
   while (i < img.pixels.length) {
@@ -54,7 +57,7 @@ color avgColor(ArrayList<Integer> cluster) {
 
 void recolor(color c, ArrayList<Integer> cluster) {
   for (int i = 0; i < cluster.size(); i++) {
-    img.pixels[cluster.get(i)] = c;
+    imgClustered.pixels[cluster.get(i)] = c;
   }
 }
 
@@ -208,13 +211,62 @@ void pixelsFlags() {
 void setup() {
   img = loadImage("file.jpg");
   size(img.width, img.height);
-  loadPixels();
+  imgClustered = createImage(img.width, img.height, RGB);
+  background(0);
   pixelsFlags();
+  loadPixels();
   randomClusters();
-  updatePixels();
+  frameRate(90);
+  image(img,0,0); //comment if wants to drawDots
+  
 }
 
 void draw() {
-  image(img, 0, 0);
+  //drawDots(); 
+  square();
+}
+
+void drawDots() {
+  int pointillize = 2;
+  loadPixels(); 
+  // Since we are going to access the image's pixels too  
+  int x = int(random(img.width));
+  int y = int(random(img.height));
+  int loc = x + y*img.width;
+  
+  // Look up the RGB color in the source image
+  loadPixels();
+  float r = red(imgClustered.pixels[loc]);
+  float g = green(imgClustered.pixels[loc]);
+  float b = blue(imgClustered.pixels[loc]);
+  noStroke();
+  
+  // Draw an ellipse at that location with that color
+  fill(r,g,b,100);
+  ellipse(x,y,pointillize,pointillize);
+}
+
+void square(){
+  // We're only going to process a portion of the image
+  // Where is the small rectangle we will process
+  int w = 80;
+  int xstart = constrain(mouseX-w/2,0,img.width);
+  int ystart = constrain(mouseY-w/2,0,img.height);
+  int xend = constrain(mouseX+w/2,0,img.width);
+  int yend = constrain(mouseY+w/2,0,img.height);
+  int matrixsize = 3;
+  loadPixels();
+  // Begin our loop for every pixel
+  for (int x = xstart; x < xend; x++) {
+    for (int y = ystart; y < yend; y++ ) {     
+      int loc = x + y*img.width;
+      pixels[loc] = imgClustered.get(x,y);
+    }
+  }
+  updatePixels();
+
+  stroke(0);
+  noFill();
+  //rect(xstart,ystart,w,w);
 }
 
