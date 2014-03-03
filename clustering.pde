@@ -6,6 +6,14 @@ PImage img;
 PImage imgClustered;
 boolean[] pxls;
 
+/* Draw Types:
+  0- default (just show)
+  1- Square Update around mouse
+  2- DrawDots
+*/
+int DRAW_TYPE = 0;
+int radio = 2; //radio of the dots drawn in type 2
+
 int newPosition() {
   for (int i = 0; i < pxls.length; i++) {
     if (!pxls[i]) {
@@ -216,18 +224,32 @@ void setup() {
   pixelsFlags();
   loadPixels();
   randomClusters();
-  frameRate(90);
-  image(img,0,0); //comment if wants to drawDots
-  
+   switch(DRAW_TYPE){
+    case 1: 
+      image(img,0,0);
+      break;
+    case 2:
+       frameRate(90);
+      break;
+  }
 }
 
 void draw() {
-  //drawDots(); 
-  square();
+  switch(DRAW_TYPE){
+    case 1: 
+      square();
+      break;
+    case 2:
+      drawDots();
+      break;
+    default:
+      image(imgClustered, 0, 0);
+      break;  
+  }
 }
 
 void drawDots() {
-  int pointillize = 2;
+  
   loadPixels(); 
   // Since we are going to access the image's pixels too  
   int x = int(random(img.width));
@@ -243,7 +265,7 @@ void drawDots() {
   
   // Draw an ellipse at that location with that color
   fill(r,g,b,100);
-  ellipse(x,y,pointillize,pointillize);
+  ellipse(x,y,radio,radio);
 }
 
 void square(){
