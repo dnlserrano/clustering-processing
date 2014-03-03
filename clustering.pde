@@ -9,7 +9,7 @@ boolean[] pxls;
 /* Draw Types:
   0- default (just show)
   1- Square Update around mouse
-  2- DrawDots
+  2- Dots
 */
 int DRAW_TYPE = 0;
 int radio = 2; //radio of the dots drawn in type 2
@@ -240,7 +240,7 @@ void draw() {
       square();
       break;
     case 2:
-      drawDots();
+      dots();
       break;
     default:
       image(imgClustered, 0, 0);
@@ -248,7 +248,7 @@ void draw() {
   }
 }
 
-void drawDots() {
+void dots() {
   
   loadPixels(); 
   // Since we are going to access the image's pixels too  
