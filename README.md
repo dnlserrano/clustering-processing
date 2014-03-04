@@ -21,7 +21,7 @@ Algorithm:
 8. Repeat from 2. until there are no more pixels to cluster
 
 ## Update
-Thanks to @gigacardoso we now have 3 cool ways of showing the clustered pixels. Try it out! Fork it, as well! :)
+Thanks to [@gigacardoso](https://github.com/gigacardoso) we now have 3 cool ways of showing the clustered pixels. Try it out! Fork it, as well! :)
 
 # References
 * [1] [Processing Documentation](http://www.processing.org/reference/)
